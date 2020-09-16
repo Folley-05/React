@@ -1,0 +1,125 @@
+import React from 'react';
+import ReactDOM, { render } from 'react-dom';
+import * as serviceWorker from './serviceWorker';
+import 'bootstrap/dist/css/bootstrap.css'
+
+class Tache extends React.Component {
+  
+
+  render() {
+    const {etat, name, children, date, check, onChange}=this.props
+    return  <div className="form-group">
+              <input type="checkbox" id={etat} name={name} className="form-check-input" checked={check} onChange={onChange} />
+              <label htmlFor=""  className="form-check-label">{children}</label>
+              <label htmlFor=""  className="form-check-label">{date}</label>
+
+            </div>
+  }
+}
+
+class Liste extends React.Component {
+
+  render() {
+    const {children}=this.props
+    return  <div>
+                {children}
+            </div>
+  }
+}
+
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state={
+      mod: true
+    }
+    this.rows=[]
+    this.handlecheck=this.handlecheck.bind(this)
+  }
+
+  remplir() {
+    this.rows=[]
+  for (let i=0; i<localStorage.length; i++) {
+    let t=JSON.parse(localStorage.getItem(localStorage.key(i)));
+    let date=new Date(t.date)
+    this.rows.push(<Tache key={localStorage.key(i)} etat={JSON.stringify(t)} check={t.check} name={localStorage.key(i)} onChange={this.handlecheck} date={date.toLocaleDateString()+" a "+date.toLocaleTimeString()} >{t.label+"   le"}</Tache>)
+    
+  }
+  return this.rows
+  }
+  modifState() {
+    let mod2=!this.state.mod
+    this.setState({mod: mod2})
+  }
+  handlecheck(e) {
+    let change=JSON.parse(e.target.id)
+    change.check=!change.check
+    localStorage.setItem(e.target.name, JSON.stringify(change))
+    this.modifState()
+  }
+
+  render() {
+      return  <div >
+                  <div className="col-sm-10">
+                      <Liste >{this.remplir()}</Liste>
+                  </div>
+              </div>
+  }
+}
+
+class PopUp extends React.Component {
+
+  render() {
+    return  <div className="col-8 not-display">
+              <form action="">
+                <div className="form-group">
+                  <label htmlFor="text">libelle de la tache</label>
+                  <input type="text" id="text" className="form-control" />
+                </div>
+                <button type='submit' className="btn btn-primary">envoyer</button>
+              </form>
+            </div>
+  }
+}
+
+class Control extends React.Component {
+
+  newTask() {
+    alert('vous')
+  }
+
+  checkAll() {
+  }
+
+  unCheckAll() {
+  }
+
+  deleteAll() {
+  }
+
+  render() {
+    return  <>
+              <div className="row">
+                <div className="col-md-3 border-success bg-primary" onClick={this.newTask()} >New Task</div>
+                <div className="col-md-3 border-success bg-primary" onClick={this.checkAll()} >Check All</div>
+                <div className="col-md-3 border-success bg-primary" onClick={this.unCheckAll()} >Uncheck All</div>
+                <div className="col-md-3 border-success bg-primary" onClick={this.deleteAll()} >Delete All</div>
+                
+              </div>
+            </>
+  }
+}
+
+render( <div className="container-fluid">
+            <Control />
+            <App />
+            <PopUp />
+        </div>, document.querySelector("#root") )
+
+var tache={
+  label: "tache a pas oublier",
+  date: new Date(),
+  check: false
+}
+var text=JSON.stringify(tache)
+console.log(text)
