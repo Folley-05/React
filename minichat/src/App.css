@@ -1,0 +1,57 @@
+#root
+{
+  background-color: black;
+  height: 48rem;
+}
+.corps
+{
+  position: relative;
+  top: 30px;
+  left: 25%;
+  width: 55%;
+  height: 44em;
+  background-color: rgb(212, 212, 212);
+  border-radius: 10px;
+  padding: 1%;
+}
+.contentMessage
+{
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 37em;
+  margin-bottom: 2%;
+  padding: 1%;
+}
+.left
+{
+  border: solid;
+}
+.message
+{
+  border-radius: 4px;
+}
+.text
+{
+  background-color: whitesmoke;
+  border-radius: 20px;
+  padding: 2%;
+  font-size: 1em;
+}
+.auteur
+{
+  font-size: 0.8em;
+  text-align: left;
+  font-weight: bold;
+  margin-left: 4%;
+}
+.date
+{
+  font-size: 0.8em;
+  text-align: right;
+  margin-right: 3%;
+}
+
+.write
+{
+  
+}
