@@ -3,13 +3,10 @@ import Corps from './components/component'
 
 
 
-export default function App({nom}) {
-
-  
-
+export default function App() {
 
   return  <div className="container-fluid">
-    
-  <Corps nom={nom} />
-</div>
+
+              <Corps />
+          </div>
 }
